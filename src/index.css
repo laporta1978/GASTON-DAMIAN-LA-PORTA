@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: #FDFCF0;
+    color: #1A1A1A;
+  }
+  
+  ::selection {
+    background-color: #FF6B2B;
+    color: #FFFFFF;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Bento Grid Design System Tokens */
+.bento-bg {
+  background-color: #FDFCF0;
+}
+
+.bento-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(229, 227, 216, 0.85);
+  border-radius: 28px;
+  box-shadow: 0 4px 20px -4px rgba(26, 26, 26, 0.04);
+}
+
+.bento-card-soft {
+  background: #F7F6EE;
+  border: 1px solid rgba(229, 227, 216, 0.9);
+  border-radius: 32px;
+}
+
+.bento-card-dark {
+  background: #111111;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 32px;
+}
+
+.bento-card-orange {
+  background: linear-gradient(135deg, #FF6B2B 0%, #F25A1B 100%);
+  color: #FFFFFF;
+  border-radius: 32px;
+}
+
+.bento-pill {
+  background: rgba(255, 107, 43, 0.1);
+  color: #FF6B2B;
+  border: 1px solid rgba(255, 107, 43, 0.2);
+  border-radius: 9999px;
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.bento-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.bento-glass-dark {
+  background: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bento-dot-grid {
+  background-image: radial-gradient(#FF6B2B 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bento-dot-grid-subtle {
+  background-image: radial-gradient(rgba(26, 26, 26, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar matching Bento palette */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4EFEA;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8D2C6;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6B2B;
+}
+
+/* Animación de pulso suave para el botón flotante de WhatsApp */
+@keyframes whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7), 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 14px rgba(37, 211, 102, 0), 0 16px 30px -5px rgba(37, 211, 102, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 10px 25px -5px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.animate-whatsapp-pulse {
+  animation: whatsapp-pulse 2.2s infinite ease-in-out;
+}
+

@@ -1,0 +1,6 @@
+{
+  "name": "Thunder 3D ",
+  "description": "Catálogo online y taller de impresión 3D con pedidos y cotizaciones personalizadas directas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,98 @@
+{
+  "entities": {
+    "Product": {
+      "collection": "products",
+      "fields": {
+        "id": { "type": "string", "description": "Unique product ID" },
+        "name": { "type": "string", "description": "Product display name" },
+        "slug": { "type": "string", "description": "SEO friendly slug" },
+        "category": { "type": "string", "description": "Category key" },
+        "categoryLabel": { "type": "string", "description": "Category display name" },
+        "description": { "type": "string", "description": "Short description" },
+        "longDescription": { "type": "string", "description": "Detailed description" },
+        "price": { "type": "number", "description": "Current selling price in ARS" },
+        "originalPrice": { "type": "number", "description": "Optional original price before discount" },
+        "isOffer": { "type": "boolean", "description": "Whether the product is on sale" },
+        "discountPercent": { "type": "number", "description": "Discount percentage" },
+        "image": { "type": "string", "description": "Main image URL" },
+        "additionalImages": { "type": "array", "description": "Gallery image URLs" },
+        "rating": { "type": "number", "description": "Average rating" },
+        "reviewsCount": { "type": "number", "description": "Number of reviews" },
+        "inStock": { "type": "boolean", "description": "Availability boolean" },
+        "stockCount": { "type": "number", "description": "Available stock units" },
+        "printMaterial": { "type": "string", "description": "Material used (PLA+, PETG, etc.)" },
+        "dimensions": { "type": "string", "description": "Dimensions string" },
+        "printTime": { "type": "string", "description": "Estimated printing time" },
+        "colors": { "type": "array", "description": "Available color variants" },
+        "tags": { "type": "array", "description": "Product tags" },
+        "isFeatured": { "type": "boolean", "description": "Whether featured on homepage" },
+        "updatedAt": { "type": "timestamp", "description": "Last update timestamp" }
+      }
+    },
+    "Order": {
+      "collection": "orders",
+      "fields": {
+        "orderNumber": { "type": "string", "description": "Unique order identifier" },
+        "createdAt": { "type": "timestamp", "description": "Order creation timestamp" },
+        "customer": { "type": "map", "description": "Customer contact and delivery details" },
+        "items": { "type": "array", "description": "List of ordered items with quantities and colors" },
+        "subtotal": { "type": "number", "description": "Subtotal before discount and shipping" },
+        "discount": { "type": "number", "description": "Discount applied" },
+        "shippingCost": { "type": "number", "description": "Shipping cost" },
+        "total": { "type": "number", "description": "Final total in ARS" },
+        "paymentMethod": { "type": "string", "description": "Selected payment method" },
+        "status": { "type": "string", "description": "Status: pendiente, en_produccion, enviado, entregado" }
+      }
+    },
+    "CustomQuote": {
+      "collection": "custom_quotes",
+      "fields": {
+        "createdAt": { "type": "timestamp", "description": "Quote submission timestamp" },
+        "fullName": { "type": "string", "description": "Customer name" },
+        "email": { "type": "string", "description": "Customer email" },
+        "phone": { "type": "string", "description": "WhatsApp contact" },
+        "projectType": { "type": "string", "description": "Category or type of project" },
+        "material": { "type": "string", "description": "Material requested" },
+        "color": { "type": "string", "description": "Color preference" },
+        "dimensions": { "type": "string", "description": "Estimated dimensions" },
+        "quantity": { "type": "number", "description": "Quantity needed" },
+        "description": { "type": "string", "description": "Project specifications" },
+        "estimatedBudget": { "type": "string", "description": "Budget range" },
+        "status": { "type": "string", "description": "Status: pendiente, cotizado, en_proceso, finalizado" }
+      }
+    },
+    "Review": {
+      "collection": "reviews",
+      "fields": {
+        "createdAt": { "type": "timestamp", "description": "Review date" },
+        "author": { "type": "string", "description": "Customer name" },
+        "location": { "type": "string", "description": "Customer city/location" },
+        "productName": { "type": "string", "description": "Product purchased" },
+        "rating": { "type": "number", "description": "Rating out of 5" },
+        "comment": { "type": "string", "description": "Review text" },
+        "verified": { "type": "boolean", "description": "Verified buyer status" },
+        "approved": { "type": "boolean", "description": "Moderation status" }
+      }
+    },
+    "ContactMessage": {
+      "collection": "contact_messages",
+      "fields": {
+        "createdAt": { "type": "timestamp", "description": "Message timestamp" },
+        "fullName": { "type": "string", "description": "Sender name" },
+        "email": { "type": "string", "description": "Sender email" },
+        "phone": { "type": "string", "description": "Sender phone" },
+        "subject": { "type": "string", "description": "Subject" },
+        "message": { "type": "string", "description": "Message content" },
+        "status": { "type": "string", "description": "Status: nuevo, respondido" }
+      }
+    },
+    "Subscriber": {
+      "collection": "subscribers",
+      "fields": {
+        "email": { "type": "string", "description": "Subscriber email address" },
+        "createdAt": { "type": "timestamp", "description": "Subscription timestamp" },
+        "active": { "type": "boolean", "description": "Subscription status" }
+      }
+    }
+  }
+}

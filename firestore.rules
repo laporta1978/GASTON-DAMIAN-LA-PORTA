@@ -1,0 +1,78 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function
+    function isValidEmail(email) {
+      return email is string && email.matches('^.+@.+\\..+$');
+    }
+
+    // Products catalog: Anyone can read products, and authenticated/admins can create/update/delete
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update, delete: if true;
+    }
+
+    // Categories catalog: Anyone can read and manage categories
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Orders collection: Anyone can create an order and read an order (e.g. for tracking with order number)
+    match /orders/{orderId} {
+      allow create: if request.resource.data.orderNumber is string
+                    && request.resource.data.total is number
+                    && request.resource.data.customer is map;
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    // Custom Quotes / A Medida
+    match /custom_quotes/{quoteId} {
+      allow create: if request.resource.data.projectName is string;
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    // Wholesale inquiries
+    match /wholesale_inquiries/{inquiryId} {
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.email is string;
+      allow read: if true;
+      allow update, delete: if false;
+    }
+
+    // Reviews / Opiniones
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.rating is number
+                    && request.resource.data.rating >= 1 
+                    && request.resource.data.rating <= 5
+                    && request.resource.data.comment is string;
+      allow update, delete: if false;
+    }
+
+    // Contact messages
+    match /contact_messages/{messageId} {
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.email is string
+                    && request.resource.data.message is string;
+      allow read: if false;
+      allow update, delete: if false;
+    }
+
+    // Newsletter Subscribers
+    match /subscribers/{subId} {
+      allow create: if request.resource.data.email is string;
+      allow read: if false;
+      allow update, delete: if false;
+    }
+
+    // Diagnostic & Test collection
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+  }
+}
