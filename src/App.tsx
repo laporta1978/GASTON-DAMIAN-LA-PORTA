@@ -26,7 +26,7 @@ import { ToastContainer } from './components/ToastContainer';
 import { WhatsAppIcon } from './components/WhatsAppIcon';
 
 const MainLayout: React.FC = () => {
-  const { currentView, whatsappNumber } = useCart();
+  const { currentView, whatsappNumber, isCartDisabled } = useCart();
 
   const handleOpenWhatsAppSupport = () => {
     const phone = whatsappNumber || '5491123456789';
@@ -43,7 +43,7 @@ const MainLayout: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1">
-        {currentView === 'checkout' ? (
+        {currentView === 'checkout' && !isCartDisabled ? (
           <Checkout />
         ) : (
           <>

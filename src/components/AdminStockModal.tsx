@@ -17,6 +17,7 @@ import {
   Tag, 
   Sparkles, 
   Star,
+  ShoppingCart,
   RotateCcw, 
   Eye, 
   EyeOff,
@@ -123,6 +124,8 @@ export const AdminStockModal: React.FC = () => {
     syncAllCategoriesToFirestore,
     isStockDisabled,
     setIsStockDisabled,
+    isCartDisabled,
+    setIsCartDisabled,
     whatsappNumber,
     setWhatsappNumber,
     setAllProductsOnDemand,
@@ -1316,6 +1319,61 @@ export const AdminStockModal: React.FC = () => {
                       />
                     </div>
                     <span className="text-[10px] text-neutral-500 font-medium">(Ej: 54911... país + área + celular)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Master Shopping Cart Mode (Activado / Desactivado) */}
+              <div className={`p-5 rounded-3xl border transition-all duration-300 ${
+                isCartDisabled
+                  ? 'bg-gradient-to-r from-orange-50 via-[#FFF9F5] to-amber-50/40 border-orange-300 shadow-sm'
+                  : 'bg-[#FAF9F5] border-[#E5E3D8] shadow-xs'
+              }`}>
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                  <div className="flex items-start gap-3.5">
+                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 border ${
+                      isCartDisabled
+                        ? 'bg-[#FF6B2B] text-white border-orange-400 shadow-md shadow-[#FF6B2B]/20'
+                        : 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-500/20'
+                    }`}>
+                      <ShoppingCart className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-sm sm:text-base font-black font-['Outfit'] text-neutral-900">
+                          {isCartDisabled 
+                            ? 'Carrito de Compras: Desactivado (Modo Catálogo & WhatsApp Directo)' 
+                            : 'Carrito de Compras: Activado'}
+                        </h4>
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                          isCartDisabled
+                            ? 'bg-[#FF6B2B] text-white'
+                            : 'bg-emerald-600 text-white'
+                        }`}>
+                          {isCartDisabled ? '⛔ Carrito Desactivado' : '🛒 Carrito Activo'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-neutral-600 mt-1 max-w-2xl leading-relaxed">
+                        {isCartDisabled
+                          ? 'El carrito está actualmente desactivado. El icono de la cabecera, el cajón lateral y los botones "Agregar al Carrito" están ocultos; los clientes consultan y piden directamente a través de WhatsApp.'
+                          : 'El carrito está activo. Los clientes pueden acumular modelos 3D y procesar pedidos consolidados.'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2.5 w-full lg:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => setIsCartDisabled(!isCartDisabled)}
+                      className={`px-4 py-2.5 rounded-2xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 shadow-xs active:scale-95 cursor-pointer ${
+                        isCartDisabled
+                          ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                          : 'bg-[#FF6B2B] hover:bg-[#E55A1F] text-white'
+                      }`}
+                    >
+                      <ShoppingCart className="w-4 h-4" />
+                      <span>{isCartDisabled ? 'Reactivar Carrito de Compras' : 'Desactivar Carrito de Compras'}</span>
+                    </button>
                   </div>
                 </div>
               </div>

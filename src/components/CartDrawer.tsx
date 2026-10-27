@@ -38,7 +38,8 @@ export const CartDrawer: React.FC = () => {
     setSelectedShipping,
     total,
     whatsappNumber,
-    addToast
+    addToast,
+    isCartDisabled
   } = useCart();
 
   const [couponInput, setCouponInput] = useState('');
@@ -113,6 +114,10 @@ export const CartDrawer: React.FC = () => {
     setOrderSentSuccess(true);
     addToast('¡Pedido enviado por WhatsApp! El carrito se vació exitosamente.', 'success');
   };
+
+  if (isCartDisabled) {
+    return null;
+  }
 
   return (
     <AnimatePresence>

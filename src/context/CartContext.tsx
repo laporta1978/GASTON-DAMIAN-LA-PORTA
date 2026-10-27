@@ -57,6 +57,8 @@ interface CartContextType {
   // Stock Control vs. On-Demand WhatsApp Mode
   isStockDisabled: boolean;
   setIsStockDisabled: (disabled: boolean) => void;
+  isCartDisabled: boolean;
+  setIsCartDisabled: (disabled: boolean) => void;
   whatsappNumber: string;
   setWhatsappNumber: (phone: string) => void;
   setAllProductsOnDemand: () => Promise<void>;
@@ -113,6 +115,7 @@ const CATEGORIES_STORAGE_KEY = 'thunder3d_categories_catalog_v2';
 const DELETED_CATEGORIES_KEY = 'thunder3d_deleted_categories_v1';
 const DELETED_PRODUCTS_KEY = 'thunder3d_deleted_products_v1';
 const STOCK_DISABLED_KEY = 'thunder3d_stock_disabled_mode_v2';
+const CART_DISABLED_KEY = 'thunder3d_cart_disabled_mode_v1';
 const WHATSAPP_PHONE_KEY = 'thunder3d_whatsapp_phone_v2';
 
 const getDeletedProductIds = (): Set<string> => {
@@ -182,6 +185,34 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       disabled 
         ? '⚡ Modo Pedidos por WhatsApp activado: Stock desactivado (Fabricación a Demanda)' 
         : '📦 Control de Stock tradicional activado',
+      'info'
+    );
+  };
+
+  // Cart disabled mode (true = Cart is disabled, direct WhatsApp consultation/orders)
+  const [isCartDisabled, setIsCartDisabledState] = useState<boolean>(() => {
+    try {
+      const saved = localStorage.getItem(CART_DISABLED_KEY);
+      return saved !== null ? JSON.parse(saved) : true; // Default to true (cart deactivated)
+    } catch {
+      return true;
+    }
+  });
+
+  const setIsCartDisabled = (disabled: boolean) => {
+    setIsCartDisabledState(disabled);
+    try {
+      localStorage.setItem(CART_DISABLED_KEY, JSON.stringify(disabled));
+    } catch (e) {
+      console.error(e);
+    }
+    if (disabled) {
+      setIsCartOpen(false);
+    }
+    addToast(
+      disabled
+        ? '⛔ Carrito de compras desactivado (Modo Catálogo y WhatsApp directo)'
+        : '🛒 Carrito de compras activado',
       'info'
     );
   };
@@ -1124,6 +1155,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         syncAllCategoriesToFirestore,
         isStockDisabled,
         setIsStockDisabled,
+        isCartDisabled,
+        setIsCartDisabled,
         whatsappNumber,
         setWhatsappNumber,
         setAllProductsOnDemand,

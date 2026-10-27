@@ -33,7 +33,8 @@ export const Header: React.FC = () => {
     setCurrentView,
     setSelectedCategory,
     totalItems,
-    setIsCartOpen
+    setIsCartOpen,
+    isCartDisabled
   } = useCart();
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -407,20 +408,22 @@ export const Header: React.FC = () => {
               )}
             </button>
 
-            {/* Carrito de Compra Action Icon */}
-            <button
-              id="header-cart-button"
-              onClick={() => setIsCartOpen(true)}
-              aria-label="Abrir carrito de compra"
-              className="relative w-10 h-10 rounded-full bg-white/80 border border-[#E5E3D8] hover:border-[#FF6B2B] flex items-center justify-center text-neutral-700 hover:text-[#FF6B2B] hover:bg-white transition-all shadow-xs cursor-pointer group"
-            >
-              <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 bg-[#FF6B2B] text-white rounded-full text-[9px] font-black flex items-center justify-center ring-2 ring-[#FDFCF0] shadow-xs">
-                  {totalItems}
-                </span>
-              )}
-            </button>
+            {/* Carrito de Compra Action Icon (solo si no está desactivado) */}
+            {!isCartDisabled && (
+              <button
+                id="header-cart-button"
+                onClick={() => setIsCartOpen(true)}
+                aria-label="Abrir carrito de compra"
+                className="relative w-10 h-10 rounded-full bg-white/80 border border-[#E5E3D8] hover:border-[#FF6B2B] flex items-center justify-center text-neutral-700 hover:text-[#FF6B2B] hover:bg-white transition-all shadow-xs cursor-pointer group"
+              >
+                <ShoppingCart className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-4 h-4 px-1 bg-[#FF6B2B] text-white rounded-full text-[9px] font-black flex items-center justify-center ring-2 ring-[#FDFCF0] shadow-xs">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+            )}
 
             {/* Mobile menu toggle */}
             <button

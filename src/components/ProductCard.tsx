@@ -19,7 +19,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { isFavorite, toggleFavorite, setQuickViewProduct, isStockDisabled, whatsappNumber, addToCart, setIsCartOpen } = useCart();
+  const { isFavorite, toggleFavorite, setQuickViewProduct, isStockDisabled, whatsappNumber, addToCart, setIsCartOpen, isCartDisabled } = useCart();
   const favorite = isFavorite(product.id);
 
   const handleWhatsAppOrder = (e: React.MouseEvent) => {
@@ -174,29 +174,33 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         <div className="flex items-center gap-1.5">
-          {/* Quick Add to Cart */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              addToCart(product, 1);
-              setIsCartOpen(true);
-            }}
-            title="Agregar al carrito"
-            aria-label="Agregar al carrito"
-            className="px-2.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-1 bg-[#FF6B2B]/10 hover:bg-[#FF6B2B] text-[#FF6B2B] hover:text-white shadow-2xs active:scale-95 cursor-pointer"
-          >
-            <ShoppingCart className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Carrito</span>
-          </button>
+          {/* Quick Add to Cart (hidden when cart is disabled) */}
+          {!isCartDisabled && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                addToCart(product, 1);
+                setIsCartOpen(true);
+              }}
+              title="Agregar al carrito"
+              aria-label="Agregar al carrito"
+              className="px-2.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-1 bg-[#FF6B2B]/10 hover:bg-[#FF6B2B] text-[#FF6B2B] hover:text-white shadow-2xs active:scale-95 cursor-pointer"
+            >
+              <ShoppingCart className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Carrito</span>
+            </button>
+          )}
 
           {/* WhatsApp Consultation Action Button */}
           <button
             id={`order-btn-${product.id}`}
             onClick={handleWhatsAppOrder}
-            className="px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5 shadow-xs bg-[#111111] text-white hover:bg-[#25D366] active:scale-95 group/btn cursor-pointer"
+            className={`px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5 shadow-xs bg-[#111111] text-white hover:bg-[#25D366] active:scale-95 group/btn cursor-pointer ${
+              isCartDisabled ? 'px-4 bg-[#25D366] hover:bg-[#20bd5a]' : ''
+            }`}
           >
-            <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366] group-hover/btn:text-white fill-current" />
+            <WhatsAppIcon className={`w-3.5 h-3.5 fill-current ${isCartDisabled ? 'text-white' : 'text-[#25D366] group-hover/btn:text-white'}`} />
             <span>Consultar</span>
           </button>
         </div>

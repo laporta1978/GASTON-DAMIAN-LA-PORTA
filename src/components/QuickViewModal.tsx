@@ -26,7 +26,8 @@ export const QuickViewModal: React.FC = () => {
     toggleFavorite,
     whatsappNumber,
     addToCart,
-    setIsCartOpen
+    setIsCartOpen,
+    isCartDisabled
   } = useCart();
 
   const [quantity, setQuantity] = useState(1);
@@ -275,34 +276,38 @@ export const QuickViewModal: React.FC = () => {
 
               {/* Actions Bar */}
               <div className="pt-3 border-t border-[#EAE7DC] space-y-2.5 sm:space-y-3">
-                {/* 1. AGREGAR AL CARRITO / AGREGAR EN CARRITO */}
-                <button
-                  id="modal-add-to-cart-btn"
-                  onClick={handleAddToCart}
-                  className={`w-full py-3.5 px-5 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-md active:scale-98 flex items-center justify-center gap-2.5 cursor-pointer ${
-                    justAdded 
-                      ? 'bg-emerald-600 text-white shadow-emerald-600/30' 
-                      : 'bg-gradient-to-r from-[#FF6B2B] to-[#F25A1B] text-white hover:brightness-105 shadow-[#FF6B2B]/25'
-                  }`}
-                >
-                  {justAdded ? (
-                    <>
-                      <Check className="w-5 h-5 stroke-[3]" />
-                      <span>¡Agregado al Carrito!</span>
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingCart className="w-5 h-5" />
-                      <span>Agregar al carrito</span>
-                    </>
-                  )}
-                </button>
+                {/* 1. AGREGAR AL CARRITO (Oculto cuando el carrito está desactivado) */}
+                {!isCartDisabled && (
+                  <button
+                    id="modal-add-to-cart-btn"
+                    onClick={handleAddToCart}
+                    className={`w-full py-3.5 px-5 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-md active:scale-98 flex items-center justify-center gap-2.5 cursor-pointer ${
+                      justAdded 
+                        ? 'bg-emerald-600 text-white shadow-emerald-600/30' 
+                        : 'bg-gradient-to-r from-[#FF6B2B] to-[#F25A1B] text-white hover:brightness-105 shadow-[#FF6B2B]/25'
+                    }`}
+                  >
+                    {justAdded ? (
+                      <>
+                        <Check className="w-5 h-5 stroke-[3]" />
+                        <span>¡Agregado al Carrito!</span>
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart className="w-5 h-5" />
+                        <span>Agregar al carrito</span>
+                      </>
+                    )}
+                  </button>
+                )}
 
                 <div className="flex items-center gap-2.5 sm:gap-3">
                   {/* WhatsApp Order Button */}
                   <button
                     onClick={handleOrderWhatsApp}
-                    className="flex-1 py-3 px-4 rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-sm active:scale-98 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white cursor-pointer"
+                    className={`flex-1 rounded-2xl font-black uppercase tracking-wider transition-all shadow-sm active:scale-98 flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white cursor-pointer ${
+                      isCartDisabled ? 'py-3.5 sm:py-4 text-xs sm:text-sm shadow-md' : 'py-3 px-4 text-xs sm:text-sm font-bold'
+                    }`}
                   >
                     <WhatsAppIcon className="w-4 h-4 fill-white" />
                     <span>Consultar por WhatsApp</span>
